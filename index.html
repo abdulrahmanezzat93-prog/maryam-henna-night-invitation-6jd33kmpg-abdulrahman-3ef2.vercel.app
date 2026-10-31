@@ -29,7 +29,9 @@
   .c1{top:20px;left:20px}.c2{top:20px;right:20px;transform:scaleX(-1)}
   .c3{bottom:20px;left:20px;transform:scaleY(-1)}.c4{bottom:20px;right:20px;transform:scale(-1,-1)}
   .content{z-index:2;position:absolute;inset:60px 80px;display:flex;flex-direction:column;align-items:center;text-align:center}
-  .mandala{flex:none;width:84px;height:84px;margin-top:14px}
+  .mandala{flex:none;width:104px;height:104px;margin-top:4px}
+  .mandala .ring{animation:spin 60s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
   .ar-title{font-family:'Aref Ruqaa';color:var(--gold);font-size:84px;line-height:1.05;margin-top:4px}
   .en-title{font-family:'Pinyon Script';color:var(--burg);font-size:64px;line-height:1;margin-top:-4px}
   .badge{margin-top:16px;display:inline-flex;gap:14px;align-items:center;background:var(--burg);color:#fff;padding:10px 28px;border-radius:40px;font-size:22px;letter-spacing:.06em}
@@ -45,6 +47,8 @@
   .details{width:100%;margin-top:18px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
   .row{display:grid;grid-template-columns:1fr 70px 1fr;align-items:center;padding:12px 10px;border-bottom:1px dashed var(--rule)}
   .row:last-child{border-bottom:0}
+  .locrow{color:inherit;text-decoration:none;cursor:pointer}
+  .mapbtn{position:relative}.mapbtn::after{content:'';position:absolute;inset:-14px -10px}
   .row .en{text-align:left}.row .ar{text-align:right;direction:rtl;font-family:'IBM Plex Sans Arabic'}
   .lbl{font-family:'IBM Plex Mono';font-size:14px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
   .ar .lbl{font-family:'IBM Plex Sans Arabic';letter-spacing:0;font-size:16px}
@@ -61,7 +65,7 @@
   #bg{position:fixed;inset:0;pointer-events:none;overflow:hidden}
   #bg svg{position:absolute;bottom:-60px;animation:rise linear infinite;opacity:0}
   @keyframes rise{0%{transform:translateY(0) rotate(-10deg);opacity:0}10%{opacity:.55}50%{transform:translateY(-55vh) translateX(25px) rotate(10deg)}90%{opacity:.5}100%{transform:translateY(-115vh) rotate(-10deg);opacity:0}}
-  @media (prefers-reduced-motion:reduce){#bg,#hearts{display:none}}
+  @media (prefers-reduced-motion:reduce){#bg,#hearts{display:none}.mandala .ring{animation:none}}
 </style>
 </head>
 <body>
@@ -109,32 +113,15 @@
 
   <div id="hearts"></div>
   <div class="content">
-    <!-- henna mandala -->
-    <svg class="mandala" viewBox="-75 -75 150 150" fill="none" stroke-linecap="round">
-      <g stroke="#BF9B5A" stroke-width="1.4">
-        <circle r="70" stroke-opacity=".35"/>
-        <circle r="56"/>
-        <circle r="22"/>
-        <circle r="12" fill="#6E2C3E" stroke="#6E2C3E"/>
-      </g>
-      <g id="petals" stroke="#BF9B5A" stroke-width="1.4" fill="#BF9B5A" fill-opacity=".14">
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(30)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(60)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(90)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(120)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(150)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(180)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(210)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(240)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(270)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(300)"/>
-        <path d="M0 -22 C10 -34 10 -46 0 -56 C-10 -46 -10 -34 0 -22z" transform="rotate(330)"/>
-      </g>
-      <g fill="#6E2C3E">
-        <circle cx="0" cy="-64" r="2.6"/><circle cx="0" cy="64" r="2.6"/><circle cx="64" cy="0" r="2.6"/><circle cx="-64" cy="0" r="2.6"/>
-        <circle cx="45" cy="-45" r="2.6"/><circle cx="-45" cy="-45" r="2.6"/><circle cx="45" cy="45" r="2.6"/><circle cx="-45" cy="45" r="2.6"/>
-      </g>
+    <!-- monogram medallion logo -->
+    <svg class="mandala" viewBox="-80 -80 160 160">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A9823F"/><stop offset=".45" stop-color="#E3C88A"/><stop offset=".7" stop-color="#BF9B5A"/><stop offset="1" stop-color="#D9BC7C"/></linearGradient></defs>
+      <g class="ring" id="lpetals"></g>
+      <circle r="76" fill="none" stroke="#BF9B5A" stroke-width="1" stroke-opacity=".45"/>
+      <circle r="50" fill="#6E2C3E"/>
+      <circle r="50" fill="none" stroke="url(#lg)" stroke-width="3"/>
+      <circle r="43" fill="none" stroke="#E3C88A" stroke-width="1" stroke-dasharray="1 4.5" stroke-linecap="round"/>
+      <text x="0" y="22" text-anchor="middle" font-family="Aref Ruqaa" font-weight="700" font-size="58" fill="url(#lg)">م</text>
     </svg>
 
     <div class="ar-title">ليلة الحِنّاء</div>
@@ -163,21 +150,22 @@
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#BF9B5A" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
         <div class="ar"><div class="lbl">الوقت</div><div class="val">الساعة ٦:٠٠ مساءً</div></div>
       </div>
-      <div class="row">
+      <a class="row locrow" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=29.98850441%2C31.51198387">
         <div class="en"><div class="lbl">Location</div><div class="val">5th Settlement<br>Sakan Compound<br>Building 3 · Flat 1</div></div>
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#BF9B5A" stroke-width="1.5"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
         <div class="ar"><div class="lbl">المكان</div><div class="val">التجمع الخامس<br>كمبوند سكن<br>عمارة ٣ · شقة ١</div></div>
-      </div>
+      </a>
     </div>
 
-    <a class="mapbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/Sakan%20Compound/@29.98850440979004,31.51198387145996,17z?hl=en"><svg viewBox="0 0 24 24" fill="none" stroke="#BF9B5A" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Open Location</span><span style="color:var(--gold)">✦</span><span class="ar">افتح الموقع</span></a>
+    <a class="mapbtn" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=29.98850441%2C31.51198387"><svg viewBox="0 0 24 24" fill="none" stroke="#BF9B5A" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Open Location</span><span style="color:var(--gold)">✦</span><span class="ar">افتح الموقع</span></a>
 
-    <div class="closing-ar">بحضوركنّ تكتمل فرحتنا 🤍</div>
-    <div class="closing-en">Your presence will make our joy complete</div>
+    <div class="closing-ar">حضوركنّ زينةُ ليلتنا 🤍</div>
+    <div class="closing-en">Your presence is the jewel of our night</div>
   </div>
 </div>
 </div>
 <script>
+(function(){const g=document.getElementById('lpetals');let h='';for(let i=0;i<16;i++){h+=`<g transform="rotate(${i*22.5})"><path d="M0 -54 C6 -60 6 -66 0 -72 C-6 -66 -6 -60 0 -54Z" fill="#BF9B5A" fill-opacity=".22" stroke="#BF9B5A" stroke-width="1.2"/></g><circle cx="0" cy="-60" r="2" fill="#6E2C3E" transform="rotate(${i*22.5+11.25})"/>`}g.innerHTML=h})();
 const D=8,N=26,cols=['#BF9B5A','#6E2C3E','#D9A9B0','#BF9B5A','#C98E98'];
 const L=document.getElementById('hearts');const H=[];
 function rnd(i,k){const x=Math.sin(i*127.1+k*311.7)*43758.5453;return x-Math.floor(x)}
